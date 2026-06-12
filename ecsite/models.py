@@ -34,12 +34,12 @@ class Item(models.Model):
     
     item_id = models.IntegerField(verbose_name="商品ID", primary_key=True)
     name = models.CharField(verbose_name="商品名", max_length=128)
-    manufacture = models.CharField(verbose_name="メーカー名",max_length=32)
+    manufacturer = models.CharField(verbose_name="メーカー名",max_length=32)
     color = models.CharField(verbose_name="商品の色", max_length=16)
     price = models.IntegerField(verbose_name="価格")
     stock = models.IntegerField(verbose_name="在庫数")
     recommended = models.BooleanField(verbose_name="オススメ", default=False)
-    category_id = models.ForeignKey(Category, verbose_name="カテゴリID", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, verbose_name="カテゴリID", on_delete=models.CASCADE)
 
 class Cart(models.Model):
 
@@ -48,8 +48,8 @@ class Cart(models.Model):
     
     amount = models.IntegerField(verbose_name="数量")
     booked_date = models.DateField(verbose_name="登録日", auto_now_add=True)
-    item_id = models.ForeignKey(Item, verbose_name="商品ID", on_delete=models.CASCADE)
-    category_id = models.ForeignKey(User, verbose_name="会員ID", on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, verbose_name="商品ID", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name="会員ID", on_delete=models.CASCADE)
 
 class Purchase(models.Model):
 
@@ -63,7 +63,7 @@ class Purchase(models.Model):
     destination = models.CharField(verbose_name="配送先", max_length=256)
     booked_date = models.DateField(verbose_name="登録日", auto_now_add=True)
     cancel = models.BooleanField(verbose_name="キャンセル", default=False)
-    user_id = models.ForeignKey(User, verbose_name="注文者", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name="注文者", on_delete=models.CASCADE)
 
 class PurchaseDetail(models.Model):
 
@@ -74,9 +74,9 @@ class PurchaseDetail(models.Model):
         ]
     
     purchase_detail_id = models.IntegerField(verbose_name="注文詳細ID", primary_key=True)
-    ammount = models.IntegerField(verbose_name="注文数")
-    item_id = models.ForeignKey(Item, verbose_name="商品ID", on_delete=models.CASCADE)
-    purchase_id = models.ForeignKey(Purchase, verbose_name="注文ID", on_delete=models.CASCADE)
+    amount = models.IntegerField(verbose_name="注文数")
+    item = models.ForeignKey(Item, verbose_name="商品ID", on_delete=models.CASCADE)
+    purchase = models.ForeignKey(Purchase, verbose_name="注文ID", on_delete=models.CASCADE)
 
 class Admin(models.Model):
 
@@ -88,4 +88,3 @@ class Admin(models.Model):
 
     admin_id = models.CharField(verbose_name="管理者ID", max_length=128, primary_key=True)
     password = models.CharField(verbose_name="パスワード", max_length=256)
-
