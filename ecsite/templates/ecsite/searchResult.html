@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <h1>キーワード “{{keyword}}” カテゴリ “{{category}}” の検索結果</h1>
+        <table border="1">
+            <tr>
+                <th>商品名</th>
+                <th>商品の色</th>
+                <th>メーカー名</th>
+                <th>価格</th>
+            </tr>
+
+            {% for item in search_result %}
+                <tr>
+                    <th><a href="{% url 'ecsite:item_detail' item.item_id%}">{{item.name}}</a></th>
+                    <th>{{item.color}}</th>
+                    <th>{{item.manufacturer}}</th>
+                    <th>{{item.price}}円</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="{% url 'ecsite:top' %}">商品検索へ</a><br>
+        
+    </body>
+</html>
