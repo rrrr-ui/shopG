@@ -88,3 +88,17 @@ class Admin(models.Model):
 
     admin_id = models.CharField(verbose_name="管理者ID", max_length=128, primary_key=True)
     password = models.CharField(verbose_name="パスワード", max_length=256)
+
+class LoginUser(models.Model):
+    
+    class Meta:
+        db_table = "login_users"
+        ordering = ["-user_id"]
+        verbose_name = "ユーザ"
+        verbose_name_plural = "ユーザ"
+
+    user_id = models.CharField(primary_key=True, max_length=128, unique=True)
+    password = models.CharField(max_length=256)
+
+    def str(self):
+        return self.user_id

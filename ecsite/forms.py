@@ -11,4 +11,43 @@ class ItemSearchForm(forms.Form):
         if len(keyword) < 1:
             raise forms.ValidationError("キーワードを入力してください")
         return keyword
-    
+
+class LoginUserForm(forms.Form):
+    id = forms.CharField(label="会員ID", max_length=128)
+    password = forms.CharField(label="パスワード", max_length=256, widget=forms.PasswordInput(render_value=False))
+
+class RegistUserForm(forms.Form):
+    id = forms.CharField(label="会員ID", max_length=128)
+    password = forms.CharField(label="パスワード", max_length=256, widget=forms.PasswordInput(render_value=False))
+    password_confirm = forms.CharField(label="パスワード(確認)", max_length=256, widget=forms.PasswordInput(render_value=False))
+    name = forms.CharField(label="お名前", max_length=128)
+    address = forms.CharField(label="ご住所", max_length=256)
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        password = self.cleaned_data['password']
+        password_confirm = self.cleaned_data['password_confirm']
+        if password != password_confirm:
+            raise forms.ValidationError("パスワードが異なります")
+        cleaned_data.pop('password_confirm', None)
+        
+        return cleaned_data
+
+class UpdateUserForm(forms.Form):
+    id = forms.CharField(label="会員ID", disabled=True)
+    password = forms.CharField(label="パスワード", widget=forms.PasswordInput(render_value=False))
+    password_confirm = forms.CharField(label="パスワード(確認)", max_length=256, widget=forms.PasswordInput(render_value=False))
+    name = forms.CharField(label="お名前")
+    address = forms.CharField(label="ご住所")
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        password = self.cleaned_data['password']
+        password_confirm = self.cleaned_data['password_confirm']
+        if password != password_confirm:
+            raise forms.ValidationError("パスワードが異なります")
+        cleaned_data.pop('password_confirm', None)
+        
+        return cleaned_data

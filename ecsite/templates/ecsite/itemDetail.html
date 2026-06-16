@@ -1,25 +1,25 @@
 <html>
     <body>
         <h3>商品の詳細表示</h3>
-        <table border="1">
-            <tr>
-                <th>商品名</th><th>{{item.name}}</th>
-            </tr>
-            <tr>
-                <th>商品の色</th><th>{{item.color}}</th>
-            </tr>
-            <tr>
-                <th>メーカー名</th><th>{{item.manufacturer}}</th>
-            </tr>
-            <tr>
-                <th>価格</th><th>{{item.price}}円</th>
-            </tr>
-            <tr>
-                <th>在庫数</th><th>{{item.stock}}個</th>
-            </tr>
-        </table>
-        <form action="{% url 'ecsite:search_item' %}" method="POST">
+        <form action="{% url 'ecsite:shopping_cart' %}" method="POST">
             {% csrf_token%}
+            <table border="1">
+                <tr>
+                    <th>商品名</th><th>{{item.name}}</th>
+                </tr>
+                <tr>
+                    <th>商品の色</th><th>{{item.color}}</th>
+                </tr>
+                <tr>
+                    <th>メーカー名</th><th>{{item.manufacturer}}</th>
+                </tr>
+                <tr>
+                    <th>価格</th><th>{{item.price}}円</th>
+                </tr>
+                <tr>
+                    <th>在庫数</th><th>{{item.stock}}個</th>
+                </tr>
+            </table>
             数量<select name="amount">
                 {% for num in stock %}
                     <option value = {{num}}>{{num}}</option>
@@ -27,6 +27,7 @@
             </select>
             <br>
             <input type="submit" value="ショッピングカートに入れる">
+            <input type="hidden" name="item_id" value="{{ item.item_id }}">
         </form>
         <br>
         <a href="{% url 'ecsite:top' %}">商品検索へ</a><br>

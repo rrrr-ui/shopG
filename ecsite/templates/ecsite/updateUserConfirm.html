@@ -1,0 +1,38 @@
+{% load static %}
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>会員情報の確認</title>
+        <link rel='stylesheet' type='text/css' href='{% static "ecsite/css/style.css" %}' />
+    </head>
+    <body>
+        <h3>以下の会員情報で更新しますか？</h3>
+        <br>
+        <form action="{% url 'ecsite:user_update_confirm' %}" method="GET">
+            {% csrf_token %}
+            <table>
+				<tr>
+					<th>会員ID</th>
+					<td><input type='text' name='id' class='text' value={{user_id}} readonly="readonly"/></td>
+				</tr>
+				<tr>
+					<th>パスワード</th>
+					<td><input type='password' name='password' class='password' value={{password}} readonly="readonly"/></td>
+				</tr>
+				<tr>
+					<th>お名前</th>
+					<td><input type='text' name='name' class='text' value={{name}} readonly="readonly"/></td>
+				</tr>
+				<tr>
+					<th>ご住所</th>
+					<td><input type='address' name='address' class='address' value={{address}} readonly="readonly"/></td>
+				</tr>
+				<tr>
+					<td colspan='2'><input type='submit' value='変更' /></td>
+				</tr>
+			</table>
+            <br>
+            <a href="{% url 'ecsite:top' %}">商品検索</a>へ<br>
+        </form>
+    </body>
+</html>

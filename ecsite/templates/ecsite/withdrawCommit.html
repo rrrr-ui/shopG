@@ -1,0 +1,14 @@
+{% load static %}
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>会員登録の確認</title>
+        <link rel='stylesheet' type='text/css' href='{% static "ecsite/css/style.css" %}' />
+    </head>
+    <body>
+        <h3>{{name}}さん、退会処理を完了しました。</h3><br>
+        <h3>またのご利用をお待ちしております。</h3><br>
+        <a href="{% url 'ecsite:user_login' %}">ログイン画面</a>へ<br>
+        </form>
+    </body>
+</html>
