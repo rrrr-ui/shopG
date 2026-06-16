@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>会員情報</title>
+        <link rel='stylesheet' type='text/css' href='{% static "ecsite/css/style.css" %}' />
+    </head>
+    <body>
+        <h3>会員情報</h3>
+        <br>
+        <form action="{% url 'ecsite:user_update_confirm' %}" method="POST">
+            {% csrf_token %}
+			{{update_form}}
+			<td colspan='2'><input type='submit' value='変更' /></td>
+			<br>
+            <a href="{% url 'ecsite:user_withdraw' %}">退会する</a><br>
+            <br>
+            <a href="{% url 'ecsite:top' %}">商品検索</a>へ<br>
+        </form>
+    </body>
+</html>

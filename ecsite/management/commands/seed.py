@@ -147,11 +147,11 @@ class Command(BaseCommand):
             ("user005", "password005", "高橋 健太", "北海道札幌市中央区大通西5-5-5"),
         ]
         accounts = {}
-        for user_id, raw_password, name, address in accounts_data:
+        for user_id, password, name, address in accounts_data:
             obj, created = Account.objects.update_or_create(
                 user_id=user_id,
                 defaults={
-                    "password": make_password(raw_password),
+                    "password": password,
                     "name": name,
                     "address": address,
                 },

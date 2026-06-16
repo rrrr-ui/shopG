@@ -1,0 +1,22 @@
+{% load static %}
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>退会確認</title>
+        <link rel='stylesheet' type='text/css' href='{% static "ecsite/css/style.css" %}' />
+    </head>
+    <body>
+        <h3>{{name}}さん、本当に退会しますか？</h3>
+        <br>
+        <form action="{% url 'ecsite:user_withdraw' %}" method="POST">
+            {% csrf_token %}
+            <table>
+				<tr>
+					<td colspan='2'><input type='submit' value='退会' /></td>
+				</tr>
+			</table>
+            <br>
+            <a href="{% url 'ecsite:top' %}">商品検索</a>へ<br>
+        </form>
+    </body>
+</html>
