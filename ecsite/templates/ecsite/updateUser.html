@@ -10,12 +10,16 @@
         <br>
         <form action="{% url 'ecsite:user_update_confirm' %}" method="POST">
             {% csrf_token %}
-			{{update_form}}
+            <table>
+                会員ID: <input type='text' name='id' class='text' value={{user_id}} readonly="readonly"/>
+                {{update_form}}
+            </table>
 			<td colspan='2'><input type='submit' value='変更' /></td>
 			<br>
             <a href="{% url 'ecsite:user_withdraw' %}">退会する</a><br>
             <br>
             <a href="{% url 'ecsite:top' %}">商品検索</a>へ<br>
+            <input type="hidden" name="id" value="{{ id }}">
         </form>
     </body>
 </html>
