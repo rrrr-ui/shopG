@@ -19,8 +19,6 @@ def top(request):
 class SearchItem(View):
     def get(self,request, *args, **kwargs):
         form = ItemSearchForm(request.GET)
-        if not form.is_valid():
-            return render(request, "ecsite/main.html")
 
         keyword = request.GET.get("keyword")
         category = request.GET.get("category")
@@ -187,21 +185,25 @@ class UserUpdate(View):
         user = models.User.objects.get(user_id=user_id)
         update_form = forms.UpdateUserForm(initial={"id": user.user_id, "name": user.name, "address": user.address,})
         context = {
+            "user_id": user_id,
             "update_form": update_form,
         }
+        print("a")
         return render(request, "ecsite/updateUser.html",context)
 
     def post(self, request):
-        update_form = forms.UpdateUserForm(request.POST)
-        if not update_form.is_valid():
-            context = {
-                 "update_form": update_form
-            }
-            return render(request, "ecsite/updateUser.html", context)
-        context = {
-            "updateuser_data": update_form.cleaned_data,
-        }
-        return render(request, "ecsite/updateUserConfirm.html", context)
+        # update_form = forms.UpdateUserForm(request.POST)
+        # if not update_form.is_valid():
+        #     context = {
+        #          "update_form": update_form
+        #     }
+        #     return render(request, "ecsite/updateUser.html", context)
+        # context = {
+        #     "updateuser_data": update_form.cleaned_data,
+        # }
+        # print("b")
+        # return render(request, "ecsite/updateUserConfirm.html", context)
+        pass
 
 class UserUpdateConfirm(View):
     def get(self, request):
@@ -213,21 +215,26 @@ class UserUpdateConfirm(View):
         user.address = request.GET["address"]
         user.save()
         context = {
+            "user_id": user_id,
             "user": user,
         }
+        print("c")
         return render(request, "ecsite/updateUserCommit.html", context)
 
     def post(self,request):
         user_id = request.session.get("user_id")
-        password = request.POST["password"]
-        name = request.POST["name"]
-        address = request.POST["address"]
+        update_form = forms.UpdateUserForm(request.POST)
+        if not update_form.is_valid():
+            context = {
+                "user_id": user_id,
+                 "update_form": update_form,
+            }
+            return render(request, "ecsite/updateUser.html", context)
         context = {
-            "user_id": user_id, 
-            "password": password,
-            "name": name,
-            "address": address,
+            "user_id": user_id,
+            "updateuser_data": update_form.cleaned_data,
         }
+        print("d")
         return render(request, "ecsite/updateUserConfirm.html", context)
 
     

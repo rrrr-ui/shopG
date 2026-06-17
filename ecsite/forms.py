@@ -35,7 +35,6 @@ class RegistUserForm(forms.Form):
         return cleaned_data
 
 class UpdateUserForm(forms.Form):
-    id = forms.CharField(label="会員ID", disabled=True)
     password = forms.CharField(label="パスワード", widget=forms.PasswordInput(render_value=False))
     password_confirm = forms.CharField(label="パスワード(確認)", max_length=256, widget=forms.PasswordInput(render_value=False))
     name = forms.CharField(label="お名前")
